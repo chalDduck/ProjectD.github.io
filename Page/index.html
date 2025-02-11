@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커플 다이어리</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard&display=swap');
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            color: white;
+            overflow: hidden;
+            background: black;
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+        }
+
+        .main-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('../Resource/BackImg.jpg') no-repeat center center;
+            background-size: cover;
+            opacity: 0;
+            animation: smoothReveal 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .background-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        .quote {
+            font-size: 2rem;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 2;
+            margin-top: 38vh;
+        }
+
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid white;
+            animation: 
+                typing 3s steps(40, end) forwards,
+                blink-caret 0.75s step-end 3;
+        }
+
+        .bottom-text {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            letter-spacing: 1px;
+            z-index: 3;
+        }
+
+        .bottom-text:hover {
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .arrow {
+            font-size: 2rem;
+            margin-top: 5px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes smoothReveal {
+            from { 
+                opacity: 0;
+                transform: scale(1.1);
+                filter: blur(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: white }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        @media screen and (max-aspect-ratio: 3088/2316) {
+            .background-image {
+                background-size: 100% auto;
+            }
+        }
+
+        @media screen and (min-aspect-ratio: 3088/2316) {
+            .background-image {
+                background-size: auto 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="background-image"></div>
+        <div class="background-overlay"></div>
+        <div class="quote">
+            <span class="typing-text">"나는 박지민 입니다!"</span>
+        </div>
+    </div>
+    <div class="bottom-text" onclick="slideToListPage()">
+        추억 회상
+        <span class="arrow">&#8595;</span>
+    </div>
+
+    <script>
+        function slideToListPage() {
+            // 페이지 슬라이드 애니메이션 적용
+            document.body.style.transform = "translateY(-100vh)";
+            document.body.style.opacity = "0";
+
+            // 0.8초 후 새로운 페이지로 이동
+            setTimeout(() => {
+                window.location.href = "ListPage.html"; 
+            }, 800);
+        }
+    </script>
+</body>
+</html>

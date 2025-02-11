@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>list</title>
+    <style>
+        /* 페이지 전체의 기본 스타일을 설정 */
+        body 
+        {
+            font-family: 'Arial', sans-serif; /*글꼴을 설정하여 페이지 텍스트의 폰트를 지정*/
+            margin: 0; /*페이지 외부 여백*/
+            padding: 20px; /*페이지 내부 여백*/
+            background-color: #f4f4f9; /*페이지의 배경색을 설정*/
+        }
+
+        /* 컨테이너 */
+        .container 
+        {
+            display: flex; /*두 컬럼을 수평으로 배치*/
+            justify-content: space-between; /*두 컬럼 간의 공간을 균등하게 배분*/
+            gap: 20px; /*컬럼 간에 20px의 간격 두기*/
+        }
+
+        /* 각 일기 항목의 영역 스타일을 설정 */
+        .diary-column 
+        {
+            width: 48%; /*두 컬럼을 거의 반반씩 나누기 위해 48%의 너비를 설정*/
+            padding: 20px; /*컬럼 안쪽에 여백을 설정하여 내용이 여백을 갖도록*/
+            background-color: white; /*배경색 설정*/
+            border-radius: 8px; /*컬럼의 모서리를 둥글게*/
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /*컬럼에 그림자를 추가하여 입체감을 준다.*/
+            height: 80vh; /*컬럼의 높이를 화면 높이의 80%로 설정*/
+            overflow-y: auto; /*콘텐츠가 넘칠 경우 스크롤바가 생기도록 설정*/
+        }
+
+        /* 일기 항목의 스타일을 설정 */
+        .diary-column h2 
+        {
+            text-align: center; /*텍스트 가운데 정렬*/
+            font-size: 24px; /*글자 크기 설정*/
+            color: #333; /*텍스트 색상 설정*/
+            margin-bottom: 20px; /*아래쪽 마진 설정*/
+        }
+
+        .diary-entry 
+        {
+            background-color: #f9f9f9; /*각 일기 항목의 배경색을 설정하여 컬럼과 구분되도록*/
+            margin-bottom: 15px; /*일기 항목 간에 여백을 추가하여 간격을 띄우기*/
+            padding: 15px; /*일기 항목의 안쪽 여백을 설정*/
+            border-radius: 6px; /*항목의 모서리를 둥글게 처리*/
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /*일기 항목에 그림자 효과를 추가하여 구분이 잘 되게*/
+        }
+
+        /* 일기의 날짜 스타일 */
+        .diary-entry .date 
+        {
+            font-size: 12px; /*글자 크기 설정*/
+            color: #777; /*텍스트 색상 설정*/
+            margin-bottom: 5px; /*아래쪽 마진 설정*/
+        }
+
+        /* 일기의 제목 스타일 */
+        .diary-entry .title 
+        {
+            font-weight: bold; /*글자 굵게 설정*/
+            font-size: 16px;  /*글자 크기 설정*/
+            margin-bottom: 10px; /*아래쪽 마진 설정정*/
+        }
+
+        /* 본문 내용 스타일 */
+        .diary-entry p 
+        {
+            font-size: 14px; /*글자 크기 설정*/
+            line-height: 1.6; /*줄 간격 설정*/
+            color: #555; /*텍스트 색상 설정*/
+        }
+
+        /* 각 사람의 일기에 고유한 배경색을 지정하여 구분 */
+        .dohyun 
+        {
+            background-color: #e3f2fd; /*파란색 계열의 배경색을 사용*/
+        }
+
+        /* 각 사람의 일기에 고유한 배경색을 지정하여 구분 */
+        .yunjeong 
+        {
+            background-color: #fce4ec; /*핑크색 계열의 배경색을 사용*/
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 도현이의 일기 -->
+        <div class="diary-column dohyon">
+            <h2>도현이의 이야기</h2>
+            <div id="dohyunEntries"></div>
+        </div>
+
+        <!-- 윤정이의 일기 -->
+        <div class="diary-column yunjeong">
+            <h2>윤정이의 이야기</h2>
+            <div id="yunjeongEntries"></div>
+        </div>
+    </div>
+
+    <script>
+        // 도현이의 일기 데이터 (저장하는 배열)
+        const dohyunEntries = 
+        [
+            {
+                date: "2025-02-09",
+                title: "오늘의 일기",
+                content: "오늘은 정말 바쁜 하루였어요. 일도 많고, 사람들과의 만남도 잦았지만..."
+            },
+            {
+                date: "2025-02-08",
+                title: "내일의 계획",
+                content: "내일은 조금 여유로운 하루가 될 것 같아요. 친구들과 함께 영화도 보고..."
+            }
+        ];
+
+        // 윤정이의 일기 데이터 (저장하는 배열)
+        const yunjeongEntries = 
+        [
+            {
+                date: "2025-02-09",
+                title: "새로운 시작",
+                content: "오늘부터 새로운 프로젝트를 시작했어요. 조금 긴장되지만 설레기도 하네요..."
+            },
+            {
+                date: "2025-02-08",
+                title: "기분 좋은 하루",
+                content: "오늘은 정말 기분 좋은 날이었어요. 친구와 함께 웃음이 넘치는 하루..."
+            }
+        ];
+
+        // 일기 항목을 페이지에 추가하는 함수
+        // 함수 호출할때 데이터와, html 요소의 id를 넣어준다.
+        function displayEntries(entries, elementId) 
+        {
+            const container = document.getElementById(elementId);
+            entries.forEach(entry => 
+            {
+                // entryDiv에 Div를 생성
+                const entryDiv = document.createElement('div');
+                // 생성한 div에 클래스이름을 diary-entry로 설정.
+                entryDiv.classList.add('diary-entry');
+
+                // innerHTML 을 통해 위에 html 문서에 요소추가, class이름 date인 div와 title 요소 추가. 그 후 내용 문단 추가
+                entryDiv.innerHTML = `
+                    <div class="date">${entry.date}</div>
+                    <div class="title">${entry.title}</div>
+                    <p>${entry.content}</p>
+                `;
+
+                // 내가 저장한 컨테이너에 생성한 entryDiv를 추가해준다.
+                container.appendChild(entryDiv);
+            });
+        }
+
+        // 페이지 로드 시 일기 데이터 추가. 
+        // 만든 함수에 넣어주는건데 (우리가 생성한 데이터 배열, Html에서 불러올 div 이름) 이렇게 들어감
+        displayEntries(dohyunEntries, 'dohyunEntries');
+        displayEntries(yunjeongEntries, 'yunjeongEntries');
+    </script>
+
+</body>
+</html>
